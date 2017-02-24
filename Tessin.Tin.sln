@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tessin.Tin", "Tessin.Tin\Tessin.Tin.csproj", "{689E22D8-889A-435D-88F2-16FDBC0D200E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tessin.Tin.Tests", "Tessin.Tin.Tests\Tessin.Tin.Tests.csproj", "{FF3693B3-E481-419F-8E6C-F1250E0B4D56}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tessin.Tin.Models", "Tessin.Tin.Models\Tessin.Tin.Models.csproj", "{50323AC4-C4CC-4B82-BA06-2E2F95A6FACC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{689E22D8-889A-435D-88F2-16FDBC0D200E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{689E22D8-889A-435D-88F2-16FDBC0D200E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{689E22D8-889A-435D-88F2-16FDBC0D200E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{689E22D8-889A-435D-88F2-16FDBC0D200E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF3693B3-E481-419F-8E6C-F1250E0B4D56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF3693B3-E481-419F-8E6C-F1250E0B4D56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF3693B3-E481-419F-8E6C-F1250E0B4D56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF3693B3-E481-419F-8E6C-F1250E0B4D56}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50323AC4-C4CC-4B82-BA06-2E2F95A6FACC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50323AC4-C4CC-4B82-BA06-2E2F95A6FACC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50323AC4-C4CC-4B82-BA06-2E2F95A6FACC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50323AC4-C4CC-4B82-BA06-2E2F95A6FACC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
