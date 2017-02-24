@@ -9,6 +9,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tessin.Tin.Tests", "Tessin.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tessin.Tin.Models", "Tessin.Tin.Models\Tessin.Tin.Models.csproj", "{50323AC4-C4CC-4B82-BA06-2E2F95A6FACC}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{2A9910C2-250C-4F3E-846F-816FF3D38A6B}"
+	ProjectSection(SolutionItems) = preProject
+		license.md = license.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
