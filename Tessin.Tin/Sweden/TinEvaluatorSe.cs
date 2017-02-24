@@ -7,7 +7,7 @@ namespace Tessin.Tin.Sweden
 {
     public class TinEvaluatorSe: ITinEvaluator
     {
-        public string Country => nameof(TinCountry.Sweden);
+        public TinCountry Country => TinCountry.Sweden;
 
         private CultureInfo Culture { get; }
 
@@ -42,9 +42,10 @@ namespace Tessin.Tin.Sweden
 
         public TinResponse EvaluateInternal(TinResponse tin, string value, TinType type)
         {
-            if (type != TinType.Entity && type != TinType.Person) return TinResponse.ForError(TinMessageCode.ErrorInvalidType);
+            if (type != TinType.Entity && type != TinType.Person) return TinResponse.ForError(TinMessageCode.ErrorInvalidType, value, Country);
+
             var normalized = type == TinType.Entity ? ValidateSe.NormalizeOnr(value) : ValidateSe.NormalizePnr(value);
-            if (normalized == null) return TinResponse.ForError(TinMessageCode.ErrorNormalizationFailed);
+            if (normalized == null) return TinResponse.ForError(TinMessageCode.ErrorNormalizationFailed, value, TinCountry.Sweden);
             tin.NormalizedValue = normalized;
 
             //bool valid;
@@ -69,10 +70,15 @@ namespace Tessin.Tin.Sweden
 
                 if (tin.Age < 0) tin.AddError(TinMessageCode.ErrorNegativeAge);
                 if (tin.Age < 18) tin.AddInfo(TinMessageCode.InfoAgeMinor);
-                if (tin.Age >= 65) tin.AddInfo(TinMessageCode.InfoAgeSenior);
-                if (tin.Age > 105) tin.AddInfo(TinMessageCode.InfoAgeExcessive);
-                if (tin.Age > 150) tin.AddError(TinMessageCode.ErrorAgeLimit);
-
+                if (tin.Age > 150)
+                {
+                    tin.AddError(TinMessageCode.ErrorAgeLimit);
+                }
+                else
+                {
+                    if (tin.Age >= 65) tin.AddInfo(TinMessageCode.InfoAgeSenior);
+                    if (tin.Age > 105) tin.AddInfo(TinMessageCode.InfoAgeExcessive);
+                }
             }
             tin.Status = tin.Messages.Any(p => p.Type == TinMessageType.Error) ? TinStatus.Invalid : TinStatus.Valid;
             return tin;

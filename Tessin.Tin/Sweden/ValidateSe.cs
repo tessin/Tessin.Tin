@@ -10,7 +10,7 @@ namespace Tessin.Tin.Sweden
 
         public static string NormalizePnr(string pnr)
         {
-            pnr = pnr.Trim();
+            pnr = pnr.Replace(" ","");
             var di = pnr.Length - 5;
             var dash = pnr[di];
             if (!(dash == '-' || dash == '+'))
@@ -25,6 +25,8 @@ namespace Tessin.Tin.Sweden
             if (int.TryParse(pnr.Substring(0, 2), out year))
             {
                 var century = GetLikelyCentury(year, dash == '+');
+                // The plus sign is not expected in the normalized form.
+                pnr = pnr.Replace('+', '-'); 
                 pnr = century + pnr;
             }
             else
@@ -42,7 +44,7 @@ namespace Tessin.Tin.Sweden
 
         public static string NormalizeOnr(string onr)
         {
-            onr = onr.Trim();
+            onr = onr.Replace(" ","");
 
             if (onr.StartsWith("SE") && onr.EndsWith("01"))
             {

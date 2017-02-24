@@ -15,7 +15,7 @@ namespace Tessin.Tin.Denmark
         private static readonly Regex DanishEntityTinRegex = new Regex("^[0-9]{8}$",
             RegexOptions.Compiled);
         
-        public string Country => "dk";
+        public TinCountry Country => TinCountry.Denmark;
 
         public TinResponse Evaluate(string value)
         {

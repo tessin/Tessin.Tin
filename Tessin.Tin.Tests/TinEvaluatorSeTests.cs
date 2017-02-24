@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+﻿using System.Linq;
 using NUnit.Framework;
 using Tessin.Tin.Models;
 using Tessin.Tin.Sweden;
@@ -75,6 +75,34 @@ namespace Tessin.Tin.Tests
             var tin = evaluator.Evaluate(value, TinType.Entity);
             return tin.Status == TinStatus.Valid;
         }
+
+        [TestCase("630318-0910", TinStatus.Valid, TinGender.Male, 53)]
+        [TestCase("140323-4709", TinStatus.Valid, TinGender.Female, 2)]
+        [TestCase("140323+4709", TinStatus.Valid, TinGender.Female, 102)]
+        [TestCase("350828-2328", TinStatus.Valid, TinGender.Female, 81)]
+        [TestCase("870709-7138", TinStatus.Valid, TinGender.Male, 29)]
+        public void Evaluate_WithSwedishPersonTin_ReturnsCorrectAgeAndGender(string value, TinStatus status, TinGender gender, int age)
+        {
+            var evaluator = new TinEvaluatorSe();
+            var tin = evaluator.Evaluate(value, TinType.Person);
+            Assert.That(tin.Type == TinType.Person);
+            Assert.That(tin.Gender == gender);
+            Assert.That(tin.Age == age);
+        }
+
+        [TestCase("630318+0910", TinMessageCode.ErrorAgeLimit)]
+        [TestCase("140323-4709", TinMessageCode.InfoAgeMinor)]
+        [TestCase("140323+4709", TinMessageCode.InfoAgeSenior)]
+        public void Evaluate_WithSwedishPersonTin_GeneratesCorrectMessageCodes(string value, params TinMessageCode[] errorCodes)
+        {
+            var evaluator = new TinEvaluatorSe();
+            var tin = evaluator.Evaluate(value, TinType.Person);
+            foreach (var code in errorCodes)
+            {
+                Assert.That(tin.Messages.Any(p => p.Code == code));
+            }
+        }
+
 
     }
 }

@@ -10,7 +10,7 @@ namespace Tessin.Tin.Tests
         [TestCase("811022-8312", ExpectedResult = "19811022-8312")]
         [TestCase("8110228311", ExpectedResult = "19811022-8311")]
         [TestCase("810231-8279", ExpectedResult = "19810231-8279")]
-        [TestCase("810231+8279", ExpectedResult = "18810231+8279")]
+        [TestCase("810231+8279", ExpectedResult = "18810231-8279")]
         [TestCase("810231-8279", ExpectedResult = "19810231-8279")]
         [TestCase("198102318279", ExpectedResult = "19810231-8279")] // Inserts dash
         [TestCase("20810231+8279", ExpectedResult = "20810231-8279")] // Plus is ignored in long form pnr's and replaced with dash.

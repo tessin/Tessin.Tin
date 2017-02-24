@@ -21,7 +21,7 @@ namespace Tessin.Tin.Models
         /// <summary>
         /// Refer to values in <see cref="TinCountry"/>
         /// </summary>
-        public string Country { get; set; }
+        public TinCountry Country { get; set; }
 
         /// <summary>
         /// Refer to values in <see cref="TinType"/>
@@ -57,7 +57,7 @@ namespace Tessin.Tin.Models
             Messages = new List<TinMessage>();
         }
 
-        public static TinResponse ForError(TinMessageCode code, string value = null, string country = null)
+        public static TinResponse ForError(TinMessageCode code, string value, TinCountry country)
         {
             var tin = new TinResponse { Country = country, Value = value, Status = TinStatus.Invalid };
             tin.Messages.Add(code.ToErrorMessage());

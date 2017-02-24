@@ -14,7 +14,7 @@ namespace Tessin.Tin.Finland
         private static readonly Regex FinishPersonTinRegex = new Regex("^[0-9]{6}[-+A][0-9]{3}[0-9A-FHJK-NPR-Y]$",
             RegexOptions.Compiled);
 
-        public string Country => "fi";
+        public TinCountry Country => TinCountry.Finland;
 
         public TinResponse Evaluate(string value)
         {

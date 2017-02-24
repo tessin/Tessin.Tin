@@ -5,7 +5,7 @@ namespace Tessin.Tin
     public interface ITinEvaluator
     {
 
-        string Country { get; }
+        TinCountry Country { get; }
 
         TinResponse Evaluate(string value);
 
