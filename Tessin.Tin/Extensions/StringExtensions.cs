@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Text;
 
 namespace Tessin.Tin.Extensions
@@ -37,6 +38,21 @@ namespace Tessin.Tin.Extensions
         public static string RemoveAllNonNumeric(this string value)
         {
             return RemoveAllExcept(value, "0123456789");
+        }
+
+        public static int CalculateMod11Checksum(this string number, int[] weights)
+        {
+            if (number.Length != weights.Length)
+                throw new ArgumentException(
+                    "The number of characters must equal " +
+                    "the number of weights.");
+            var sum = 0;
+            for (var i = 0; i < weights.Length; i++)
+            {
+                var num = (int)char.GetNumericValue(number[i]);
+                sum += num * weights[i];
+            }
+            return (11 - sum % 11);
         }
 
     }

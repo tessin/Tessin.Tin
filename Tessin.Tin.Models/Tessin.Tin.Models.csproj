@@ -40,8 +40,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\NumericExtensions.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\TinCodesExtensions.cs" />
     <Compile Include="Extensions\TinResponseExtensions.cs" />
+    <Compile Include="TinParts.cs" />
     <Compile Include="TinCountry.cs" />
     <Compile Include="TinEntityType.cs" />
     <Compile Include="TinMessageCode.cs" />

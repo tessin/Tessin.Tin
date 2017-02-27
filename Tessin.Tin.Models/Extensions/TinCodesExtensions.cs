@@ -20,6 +20,8 @@ namespace Tessin.Tin.Models.Extensions
                     return new TinMessage(TinMessageType.Information, "No checksum present or checksum not verified.", code);
                 case TinMessageCode.InfoUnknownEntityType:
                     return new TinMessage(TinMessageType.Information, "The normalized value does not correspond to a known entity type.", code);
+                case TinMessageCode.InfoAmbiguousCentury:
+                    return new TinMessage(TinMessageType.Information, "The calculated century may be incorrect.", code);
                 default:
                     throw new InvalidOperationException($"Unknown info code '{code}'.");
             }

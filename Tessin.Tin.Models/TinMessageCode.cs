@@ -20,7 +20,9 @@
         InfoAgeMinor = 20,
         InfoAgeSenior = 22,
         InfoAgeExcessive = 24,
+        InfoAmbiguousCentury = 26,
         InfoUnknownEntityType = 30,
         InfoChecksumNotVerified = 40,
+
     }
 }

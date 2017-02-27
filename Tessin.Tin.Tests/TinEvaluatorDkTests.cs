@@ -78,7 +78,7 @@ namespace Tessin.Tin.Tests
         [TestCase("", ExpectedResult = false)]
         [TestCase("   ", ExpectedResult = false)]
         [TestCase(null, ExpectedResult = false)]
-        public bool Evaluate_WithEntityPersonTin_ReturnValidOrInvalid(string value)
+        public bool Evaluate_WithEntityTin_ReturnValidOrInvalid(string value)
         {
             var evaluator = new TinEvaluatorDk();
             var tin = evaluator.Evaluate(value, TinType.Entity);

@@ -170,7 +170,7 @@ namespace Tessin.Tin.Denmark
                     return 0;
             }
         }
-        //16315877
+
         private static bool IsValidCvr(string value)
         {
             value = value.RemoveAllExcept("0123456789");
@@ -191,27 +191,6 @@ namespace Tessin.Tin.Denmark
             }
             return sum%11 == 0;
         }
-
-        // PROCEDURE DanishVATNoValid @ 1000000012 (VATNo @ 1000000000: Text [20]): Boolean;
-        // VAR
-        //   Sum @ 1000000001: Integer;
-        //   Counter @ 1000000002: Integer;
-        //   Digit @ 1000000003: Integer;
-        // BEGIN
-        //   VATNo: = StrKeep (VATNo, '0123456789'); // Remove all but the digits
-        //   IF strlen (VATNo)> 8 THEN
-        //     EXIT (FALSE);
-        //   WHILE strlen (VATNo) <8 DO
-        //     VATNo: = '0' + VATNo;
-        //   FOR Counter: = 1 TO 8 DO BEGIN
-        //     Evaluate (Digit, COPYSTR (VATNo, Counter, 1)); // Weights are 2,7,6,5,4,3,2,1
-        //     IF Counter = 1 THEN
-        //       Sum + = Digit * 2
-        //     ELSE
-        //       Sum + = Digit * (9-Counter);
-        //   THAN;
-        //   EXIT (Sum MOD 11 = 0);
-        // THAN;
 
     }
 }

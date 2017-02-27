@@ -49,10 +49,12 @@
     <Compile Include="Extensions\GenericExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\TinCountryExtensions.cs" />
+    <Compile Include="Extensions\TinPartsExtensions.cs" />
     <Compile Include="Extensions\TinResponseExtensions.cs" />
     <Compile Include="Finland\TinEvaluatorFi.cs" />
     <Compile Include="ITinEvaluator.cs" />
     <Compile Include="LuhnAlgorithm.cs" />
+    <Compile Include="Norway\TinEvaluatorNo.cs" />
     <Compile Include="Sweden\EntityTypesSe.cs" />
     <Compile Include="Sweden\GenerateSe.cs" />
     <Compile Include="Sweden\UtilSe.cs" />
