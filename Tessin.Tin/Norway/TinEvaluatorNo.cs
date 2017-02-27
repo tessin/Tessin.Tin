@@ -51,7 +51,7 @@ namespace Tessin.Tin.Norway
                 parts.Serial = normalized.Substring(6, 3);
                 parts.Checksum = normalized.Substring(9, 2);
                 parts.SetDate(normalized.Substring(0,6), TinDateFormat.DayMonthYear);
-                parts.Century = GetCentury(response, parts.SerialNumeric);
+                parts.Century = GetCentury(response, parts.YearNumeric, parts.SerialNumeric);
                 response.Gender = GetGender(parts);
                 response.Date = parts.GetDate();
                 response.Age = response.Date.ToAge();
@@ -69,7 +69,7 @@ namespace Tessin.Tin.Norway
                     if (response.Age > 105) response.AddInfo(TinMessageCode.InfoAgeExcessive);
                 }
 
-                var calculated = CalculatePersonChecksum(parts.Checksum);
+                var calculated = CalculatePersonChecksum(normalized);
                 if (parts.Checksum != calculated)
                 {
                     response.AddError(TinMessageCode.ErrorInvalidChecksum);
@@ -148,13 +148,14 @@ namespace Tessin.Tin.Norway
             return $"{chk1}{chk2}";
         }
 
-        public static int GetCentury(TinResponse response, int serial)
+        public static int GetCentury(TinResponse response, int? year, int serial)
         {
+            if (!year.HasValue) throw new ArgumentException("No year of birth.");
             if (serial >= 500 && serial < 750)
             {
                 response.AddInfo(TinMessageCode.InfoAmbiguousCentury);
             }
-            return serial < 500 ? 1900 : 2000;
+            return serial < 500 ? 1900 : (year < 40) ? 2000 : 1800;
         }
 
         // function checkNIN(o) {
