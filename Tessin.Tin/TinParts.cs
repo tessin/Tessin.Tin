@@ -112,7 +112,7 @@ namespace Tessin.Tin
             return new DateTime(year.Value, month.Value, day.Value, 0, 0, 0);
         }
 
-        public void SetDateInfo(string date, TinDateFormat format, TinYearFormat yearFormat)
+        public void SetDateInfo(string date, TinDateFormat format)
         {
             if (date.Length != 6) throw new ArgumentException("The datestring must be exactly 6 characters long.");
             
