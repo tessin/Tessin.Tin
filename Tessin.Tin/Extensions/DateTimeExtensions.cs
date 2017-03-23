@@ -12,13 +12,19 @@ namespace Tessin.Tin.Extensions
             return dateTime?.ToAge();
         }
 
-        public static int ToAge(this DateTime dateTime)
+        public static int ToAge(this DateTime date)
         {
-            var utc = dateTime.ToUniversalTime();
-            var span = DateTime.UtcNow - utc;
-            // Precise enough?
-            var years = Math.Floor(span.TotalDays/AverageDaysPerYear);
-            return (int)years;
+            var year = date.Year;
+            var month = date.Month;
+            var day = date.Day;
+
+            var now = TinGlobal.Now;
+
+            var years = now.Year - year;
+
+            years -= now.Month < month || (now.Month == month && now.Day < day) ? 1 : 0;
+
+            return years;
         }
     }
 }

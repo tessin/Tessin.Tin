@@ -40,7 +40,7 @@ namespace Tessin.Tin.Extensions
             return RemoveAllExcept(value, "0123456789");
         }
 
-        public static int CalculateMod11Checksum(this string number, int[] weights)
+        public static int CalculateMod11Checksum(this string number, int[] weights, Func<int,int> adjustment = null)
         {
             if (number.Length != weights.Length)
                 throw new ArgumentException(
@@ -52,7 +52,8 @@ namespace Tessin.Tin.Extensions
                 var num = (int)char.GetNumericValue(number[i]);
                 sum += num * weights[i];
             }
-            return (11 - sum % 11);
+            var chk = (11 - sum % 11);
+            return adjustment?.Invoke(chk) ?? chk;
         }
 
     }

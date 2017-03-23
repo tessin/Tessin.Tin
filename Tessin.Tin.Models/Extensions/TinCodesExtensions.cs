@@ -4,6 +4,7 @@ namespace Tessin.Tin.Models.Extensions
 {
     public static class TinCodesExtensions
     {
+
         public static TinMessage ToInfoMessage(this TinMessageCode code)
         {
             switch (code)
@@ -50,8 +51,6 @@ namespace Tessin.Tin.Models.Extensions
                     return new TinMessage(TinMessageType.Error, "The embedded date is invalid.", code);
                 case TinMessageCode.ErrorNegativeAge:
                     return new TinMessage(TinMessageType.Error, "The computed age is negative.", code);
-                case TinMessageCode.ErrorAgeLimit:
-                    return new TinMessage(TinMessageType.Error, "The computed age is impossibly high.", code);
                 case TinMessageCode.ErrorInvalidEntityType:
                     return new TinMessage(TinMessageType.Error, "The infered entity type is invalid.", code);
                 case TinMessageCode.ErrorInternal:

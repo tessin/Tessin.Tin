@@ -45,12 +45,10 @@ namespace Tessin.Tin.Sweden
         public static string NormalizeOnr(string onr)
         {
             onr = onr.Replace(" ","");
-
             if (onr.StartsWith("SE") && onr.EndsWith("01"))
             {
                 onr = onr.Substring(2, onr.Length - 4);
             }
-
             var di = onr.Length - 5;
             var dash = onr[di];
             if (dash == '-') return onr.Length != 11 ? null : onr;
@@ -136,7 +134,7 @@ namespace Tessin.Tin.Sweden
         public static int GetLikelyCentury(int year, bool plus100)
         {
             // 501127 -> 18501127
-            var now = DateTime.Now;
+            var now = TinGlobal.Now;
             var scy = now.Year%100; // Current short year (e.g. 11)
             var cc = (now.Year - scy)/100; // Current century (e.g. 2000)
             var siy = year%100; // Input short year (e.g. 78).

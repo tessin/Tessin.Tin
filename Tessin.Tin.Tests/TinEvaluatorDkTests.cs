@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using NUnit.Framework;
 using Tessin.Tin.Denmark;
 using Tessin.Tin.Models;
@@ -9,6 +10,12 @@ namespace Tessin.Tin.Tests
     [TestFixture]
     public class TinEvaluatorDkTests
     {
+        [SetUp]
+        public void SetUp()
+        {
+            TinGlobal.OverrideDate = new DateTime(2017, 2, 11);
+        }
+
         [TestCase("300954-3235", TinStatus.Valid, TinGender.Male, 62)]
         [TestCase("031048-1297", TinStatus.Valid, TinGender.Male, 68)]
         [TestCase("300788-4981", TinStatus.Valid, TinGender.Male, 28)]
@@ -24,7 +31,6 @@ namespace Tessin.Tin.Tests
             Assert.That(tin.Age == age);
         }
 
-        [TestCase("031058-8297", TinMessageCode.ErrorAgeLimit)]
         [TestCase("031036-8297", TinMessageCode.ErrorNegativeAge)]
         [TestCase("03sdfsdf1036-8297", TinMessageCode.ErrorNormalizationFailed)]
         [TestCase("03sdfsdf1036-8297", TinMessageCode.ErrorNormalizationFailed)]

@@ -3,10 +3,11 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using Tessin.Tin.Extensions;
 using Tessin.Tin.Models;
+using Tessin.Tin.Models.Extensions;
 
 namespace Tessin.Tin.Denmark
 {
-    public class TinEvaluatorDk: ITinEvaluator
+    public class TinEvaluatorDk: TinEvaluator
     {
 
         private static readonly Regex DanishPersonTinRegex = new Regex("^[0-9]{6}-[0-9]{4}$",
@@ -15,9 +16,9 @@ namespace Tessin.Tin.Denmark
         private static readonly Regex DanishEntityTinRegex = new Regex("^[0-9]{8}$",
             RegexOptions.Compiled);
         
-        public TinCountry Country => TinCountry.Denmark;
+        public override TinCountry Country => TinCountry.Denmark;
 
-        public TinResponse Evaluate(string value)
+        public override TinResponse Evaluate(string value)
         {
             var result = Evaluate(value, TinType.Person);
             if (result.Status != TinStatus.Invalid) return result;
@@ -26,7 +27,7 @@ namespace Tessin.Tin.Denmark
             return result;
         }
 
-        public TinResponse Evaluate(string value, TinType type)
+        public override TinResponse Evaluate(string value, TinType type)
         {
             var tin = new TinResponse();
             tin.Value = value;
@@ -50,21 +51,8 @@ namespace Tessin.Tin.Denmark
 
                 tin.Gender = GetGender(normalized);
                 tin.Date = GetDate(normalized);
-                tin.Age = tin.Date.ToAge();
-
-                if (tin.Age < 0) tin.AddError(TinMessageCode.ErrorNegativeAge);
-                if (tin.Age < 18) tin.AddInfo(TinMessageCode.InfoAgeMinor);
-
-                if (tin.Age > 150)
-                {
-                    tin.AddError(TinMessageCode.ErrorAgeLimit);
-                }
-                else
-                {
-                    if (tin.Age >= 65) tin.AddInfo(TinMessageCode.InfoAgeSenior);
-                    if (tin.Age > 105) tin.AddInfo(TinMessageCode.InfoAgeExcessive);
-                }
-
+                tin.HandleAge();;
+                
                 tin.AddInfo(TinMessageCode.InfoChecksumNotVerified);
 
                 tin.Status = tin.Messages.Any(p => p.Type == TinMessageType.Error)

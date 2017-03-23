@@ -52,6 +52,7 @@
     <Compile Include="Extensions\TinPartsExtensions.cs" />
     <Compile Include="Extensions\TinResponseExtensions.cs" />
     <Compile Include="Finland\TinEvaluatorFi.cs" />
+    <Compile Include="TinGlobal.cs" />
     <Compile Include="ITinEvaluator.cs" />
     <Compile Include="LuhnAlgorithm.cs" />
     <Compile Include="Norway\TinEvaluatorNo.cs" />
@@ -61,6 +62,8 @@
     <Compile Include="Sweden\ValidateSe.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sweden\TinEvaluatorSe.cs" />
+    <Compile Include="TinEvaluator.cs" />
+    <Compile Include="TinParts.cs" />
     <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>

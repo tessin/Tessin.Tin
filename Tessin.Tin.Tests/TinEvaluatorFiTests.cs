@@ -10,7 +10,14 @@ namespace Tessin.Tin.Tests
     [TestFixture]
     public class TinEvaluatorFiTests
     {
-        
+
+        [SetUp]
+        public void SetUp()
+        {
+            TinGlobal.OverrideDate = new DateTime(2017, 2, 11);
+        }
+
+
         [TestCase("0112038-9", ExpectedResult = true)]
         [TestCase("2655044-9", ExpectedResult = true)]
         [TestCase("2255664-0", ExpectedResult = true)]

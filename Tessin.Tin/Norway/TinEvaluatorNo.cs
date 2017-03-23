@@ -1,23 +1,25 @@
 ﻿using System;
+
 using System.Linq;
 using System.Text.RegularExpressions;
 using Tessin.Tin.Extensions;
 using Tessin.Tin.Models;
-using Tessin.Tin.Models.Extensions;
 
 namespace Tessin.Tin.Norway
 {
-    public class TinEvaluatorNo : ITinEvaluator
+    public class TinEvaluatorNo : TinEvaluator
     {
-        private static readonly Regex DanishPersonTinRegex = new Regex("^[0-9]{11}$",
+        private static readonly Func<int, int> ModuloRule = (p) => p == 10 ? -1 : (p == 11 ? 0 : p);
+
+        private static readonly Regex NorwegianPersonTinRegex = new Regex("^[0-9]{11}$",
             RegexOptions.Compiled);
 
-        private static readonly Regex DanishEntityTinRegex = new Regex("^[0-9]{9}$",
+        private static readonly Regex NorwegianEntityTinRegex = new Regex("^[0-9]{9}$",
             RegexOptions.Compiled);
 
-        public TinCountry Country => TinCountry.Denmark;
+        public override TinCountry Country => TinCountry.Norway;
 
-        public TinResponse Evaluate(string value)
+        public override TinResponse Evaluate(string value)
         {
             var result = Evaluate(value, TinType.Person);
             if (result.Status != TinStatus.Invalid) return result;
@@ -26,7 +28,7 @@ namespace Tessin.Tin.Norway
             return result;
         }
 
-        public TinResponse Evaluate(string value, TinType type)
+        public override TinResponse Evaluate(string value, TinType type)
         {
             var response = new TinResponse();
             response.Value = value;
@@ -42,39 +44,34 @@ namespace Tessin.Tin.Norway
             {
                 var normalized = NormalizePerson(value);
                 if (normalized == null) return response.AddError(TinMessageCode.ErrorNormalizationFailed);
-                if (!DanishPersonTinRegex.IsMatch(normalized))
+                if (!NorwegianPersonTinRegex.IsMatch(normalized))
                 {
                     return response.AddError(TinMessageCode.ErrorFormatMismatchPerson);
                 }
 
-                var parts = new TinParts();
+                var parts = new TinParts(TinDateFormat.DayMonthYear, TinYearFormat.Short);
                 parts.Serial = normalized.Substring(6, 3);
                 parts.Checksum = normalized.Substring(9, 2);
                 parts.SetDate(normalized.Substring(0,6), TinDateFormat.DayMonthYear);
                 parts.Century = GetCentury(response, parts.YearNumeric, parts.SerialNumeric);
                 response.Gender = GetGender(parts);
                 response.Date = parts.GetDate();
-                response.Age = response.Date.ToAge();
 
-                if (response.Age < 0) response.AddError(TinMessageCode.ErrorNegativeAge);
-                if (response.Age < 18) response.AddInfo(TinMessageCode.InfoAgeMinor);
-
-                if (response.Age > 150)
-                {
-                    response.AddError(TinMessageCode.ErrorAgeLimit);
-                }
-                else
-                {
-                    if (response.Age >= 65) response.AddInfo(TinMessageCode.InfoAgeSenior);
-                    if (response.Age > 105) response.AddInfo(TinMessageCode.InfoAgeExcessive);
-                }
-
-                var calculated = CalculatePersonChecksum(normalized);
+                var calculated = CalculatePersonChecksum(parts);
                 if (parts.Checksum != calculated)
                 {
                     response.AddError(TinMessageCode.ErrorInvalidChecksum);
                 }
 
+                if (response.Date == null)
+                {
+                    response.AddError(TinMessageCode.ErrorInvalidDate);
+                }
+                else
+                {
+                    response.HandleAge();
+                }
+                
                 response.Status = response.Messages.Any(p => p.Type == TinMessageType.Error)
                     ? TinStatus.Invalid
                     : TinStatus.Valid;
@@ -86,7 +83,7 @@ namespace Tessin.Tin.Norway
 
                 if (normalized == null)
                     return response.AddError(TinMessageCode.ErrorNormalizationFailed);
-                if (!DanishEntityTinRegex.IsMatch(normalized))
+                if (!NorwegianEntityTinRegex.IsMatch(normalized))
                 {
                     return response.AddError(TinMessageCode.ErrorFormatMismatchEntity);
                 }
@@ -94,7 +91,7 @@ namespace Tessin.Tin.Norway
                 var parts = new TinParts();
                 parts.Serial = normalized.Substring(0, 8);
                 parts.Checksum = normalized.Substring(8, 1);
-                var calculated = CalculateEntityChecksum(parts.Checksum);
+                var calculated = CalculateEntityChecksum(parts);
                 if (parts.Checksum != calculated)
                 {
                     return response.AddError(TinMessageCode.ErrorInvalidChecksum);
@@ -108,6 +105,11 @@ namespace Tessin.Tin.Norway
             }
 
             return response;
+        }
+
+        private static void ValidateParts(TinParts parts)
+        {
+            
         }
 
         private static string NormalizePerson(string value)
@@ -134,17 +136,19 @@ namespace Tessin.Tin.Norway
             }
         }
 
-        private static string CalculateEntityChecksum(string number)
+        private static string CalculateEntityChecksum(TinParts parts)
         {
-            var chk = number.CalculateMod11Checksum(new[] {3, 2, 7, 6, 5, 4, 3, 2});
+            var number = parts.ToStringWithoutChecksum();
+            var chk = number.CalculateMod11Checksum(new [] { 3, 2, 7, 6, 5, 4, 3, 2 }, ModuloRule);
             return chk.ToString();
         }
 
-        private static string CalculatePersonChecksum(string number)
+        private static string CalculatePersonChecksum(TinParts parts)
         {
-            var chk1 = number.CalculateMod11Checksum(new[] { 3, 7, 6, 1, 8, 9, 4, 5, 2 });
-            number = chk1 + number;
-            var chk2 = number.CalculateMod11Checksum(new[] { 5, 4, 3, 2, 7, 6, 5, 4, 3, 2 });
+            var number = parts.ToStringWithoutChecksum();
+            var chk1 = number.CalculateMod11Checksum(new [] { 3, 7, 6, 1, 8, 9, 4, 5, 2 }, ModuloRule);
+            number = number + chk1;
+            var chk2 = number.CalculateMod11Checksum(new [] { 5, 4, 3, 2, 7, 6, 5, 4, 3, 2 }, ModuloRule);
             return $"{chk1}{chk2}";
         }
 

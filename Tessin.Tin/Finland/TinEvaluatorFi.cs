@@ -3,10 +3,11 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using Tessin.Tin.Extensions;
 using Tessin.Tin.Models;
+using Tessin.Tin.Models.Extensions;
 
 namespace Tessin.Tin.Finland
 {
-    public class TinEvaluatorFi : ITinEvaluator
+    public class TinEvaluatorFi : TinEvaluator
     {
 
         private static readonly Regex FinishEntityTinRegex = new Regex("^[0-9]{7}-[0-9]$", RegexOptions.Compiled);
@@ -14,9 +15,9 @@ namespace Tessin.Tin.Finland
         private static readonly Regex FinishPersonTinRegex = new Regex("^[0-9]{6}[-+A][0-9]{3}[0-9A-FHJK-NPR-Y]$",
             RegexOptions.Compiled);
 
-        public TinCountry Country => TinCountry.Finland;
+        public override TinCountry Country => TinCountry.Finland;
 
-        public TinResponse Evaluate(string value)
+        public override TinResponse Evaluate(string value)
         {
             var result = Evaluate(value, TinType.Person);
             if (result.Status != TinStatus.Invalid) return result;
@@ -25,7 +26,7 @@ namespace Tessin.Tin.Finland
             return result;
         }
 
-        public TinResponse Evaluate(string value, TinType type)
+        public override TinResponse Evaluate(string value, TinType type)
         {
 
             var tin = new TinResponse();
@@ -71,12 +72,9 @@ namespace Tessin.Tin.Finland
                 }
 
                 tin.Date = GetDate(normalized);
-                tin.Age = tin.Date.ToAge();
-                if (tin.Age < 0) tin.AddError(TinMessageCode.ErrorNegativeAge);
-                if (tin.Age < 18) tin.AddInfo(TinMessageCode.InfoAgeMinor);
-                if (tin.Age >= 65) tin.AddInfo(TinMessageCode.InfoAgeSenior);
-                if (tin.Age > 105) tin.AddInfo(TinMessageCode.InfoAgeExcessive);
-                if (tin.Age > 150) tin.AddError(TinMessageCode.ErrorAgeLimit);
+
+                tin.HandleAge();
+
                 tin.Gender = GetGender(normalized);
 
                 var check = normalized.Last();

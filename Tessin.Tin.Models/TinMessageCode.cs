@@ -3,6 +3,7 @@
 
     public enum TinMessageCode
     {
+        None = 0,
         ErrorValueIsNullOrWhitespace = 101,
         ErrorNormalizationFailed = 103,
         ErrorInvalidType = 105,
@@ -11,7 +12,6 @@
         ErrorFormatMismatchPerson = 115,
         ErrorInvalidDate = 121,
         ErrorNegativeAge = 123,
-        ErrorAgeLimit = 125,
         ErrorInvalidEntityType = 131,
         ErrorInvalidChecksum = 141,
         ErrorInternal = 199,

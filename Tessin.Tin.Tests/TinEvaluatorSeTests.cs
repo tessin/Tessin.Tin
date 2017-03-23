@@ -1,13 +1,23 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using NUnit.Framework;
 using Tessin.Tin.Models;
 using Tessin.Tin.Sweden;
 
 namespace Tessin.Tin.Tests
 {
+
     [TestFixture]
     public class TinEvaluatorSeTests
     {
+
+        [SetUp]
+        public void SetUp()
+        {
+            TinGlobal.OverrideDate = new DateTime(2017, 2, 11);
+        }
+
+
         [TestCase("630318-0910", ExpectedResult = true)]
         [TestCase("140323-4709", ExpectedResult = true)]
         [TestCase("350828-2328", ExpectedResult = true)]
@@ -90,7 +100,6 @@ namespace Tessin.Tin.Tests
             Assert.That(tin.Age == age);
         }
 
-        [TestCase("630318+0910", TinMessageCode.ErrorAgeLimit)]
         [TestCase("140323-4709", TinMessageCode.InfoAgeMinor)]
         [TestCase("140323+4709", TinMessageCode.InfoAgeSenior)]
         public void Evaluate_WithSwedishPersonTin_GeneratesCorrectMessageCodes(string value, params TinMessageCode[] errorCodes)

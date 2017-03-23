@@ -2,12 +2,13 @@
 using System.Linq;
 using Tessin.Tin.Extensions;
 using Tessin.Tin.Models;
+using Tessin.Tin.Models.Extensions;
 
 namespace Tessin.Tin.Sweden
 {
-    public class TinEvaluatorSe: ITinEvaluator
+    public class TinEvaluatorSe: TinEvaluator
     {
-        public TinCountry Country => TinCountry.Sweden;
+        public override TinCountry Country => TinCountry.Sweden;
 
         private CultureInfo Culture { get; }
 
@@ -16,7 +17,7 @@ namespace Tessin.Tin.Sweden
             Culture = new CultureInfo("sv-SE");
         }
 
-        public TinResponse Evaluate(string value)
+        public override TinResponse Evaluate(string value)
         {
             var result = Evaluate(value, TinType.Person);
             var temp = result;
@@ -25,19 +26,16 @@ namespace Tessin.Tin.Sweden
             return result.Status == TinStatus.Invalid ? temp : result;
         }
 
-        public TinResponse Evaluate(string value, TinType type)
+        public override TinResponse Evaluate(string value, TinType type)
         {
             var response = new TinResponse();
             response.Country = Country;
             response.Value = value;
             response.Type = type;
 
-            if (string.IsNullOrWhiteSpace(value))
-            {
-                return response.AddError(TinMessageCode.ErrorValueIsNullOrWhitespace);
-            }
-
-            return EvaluateInternal(response, value, type);
+            return string.IsNullOrWhiteSpace(value) ? 
+                response.AddError(TinMessageCode.ErrorValueIsNullOrWhitespace) : 
+                EvaluateInternal(response, value, type);
         }
 
         public TinResponse EvaluateInternal(TinResponse response, string value, TinType type)
@@ -65,19 +63,8 @@ namespace Tessin.Tin.Sweden
 
                 response.Gender = ValidateSe.GetNormalizedPnrGender(normalized);
                 
-                response.Age = response.Date.ToAge();
+                response.HandleAge();
 
-                if (response.Age < 0) response.AddError(TinMessageCode.ErrorNegativeAge);
-                if (response.Age < 18) response.AddInfo(TinMessageCode.InfoAgeMinor);
-                if (response.Age > 150)
-                {
-                    response.AddError(TinMessageCode.ErrorAgeLimit);
-                }
-                else
-                {
-                    if (response.Age >= 65) response.AddInfo(TinMessageCode.InfoAgeSenior);
-                    if (response.Age > 105) response.AddInfo(TinMessageCode.InfoAgeExcessive);
-                }
             }
             response.Status = response.Messages.Any(p => p.Type == TinMessageType.Error) ? TinStatus.Invalid : TinStatus.Valid;
             return response;
