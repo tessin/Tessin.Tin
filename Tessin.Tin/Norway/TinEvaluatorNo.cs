@@ -52,7 +52,7 @@ namespace Tessin.Tin.Norway
                 var parts = new TinParts(TinDateFormat.DayMonthYear, TinYearFormat.Short);
                 parts.Serial = normalized.Substring(6, 3);
                 parts.Checksum = normalized.Substring(9, 2);
-                parts.SetDate(normalized.Substring(0,6), TinDateFormat.DayMonthYear);
+                parts.SetDateInfo(normalized.Substring(0,6), TinDateFormat.DayMonthYear);
                 parts.Century = GetCentury(response, parts.YearNumeric, parts.SerialNumeric);
                 response.Gender = GetGender(parts);
                 response.Date = parts.GetDate();

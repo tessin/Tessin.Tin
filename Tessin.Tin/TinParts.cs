@@ -108,15 +108,14 @@ namespace Tessin.Tin
             var month = MonthNumeric;
             var day = DayNumeric;
             if (year == null || month == null || day == null) return null;
-
             if (!Utils.IsValidDate(year.Value, month.Value, day.Value)) return null;
-
             return new DateTime(year.Value, month.Value, day.Value, 0, 0, 0);
         }
 
-        public void SetDate(string date, TinDateFormat format)
+        public void SetDateInfo(string date, TinDateFormat format, TinYearFormat yearFormat)
         {
             if (date.Length != 6) throw new ArgumentException("The datestring must be exactly 6 characters long.");
+            
             var p1 = date.Substring(0, 2);
             var p2 = date.Substring(2, 2);
             var p3 = date.Substring(4, 2);
@@ -136,7 +135,6 @@ namespace Tessin.Tin
                     throw new ArgumentOutOfRangeException(nameof(format), format, null);
             }
         }
-
 
     }
 }
