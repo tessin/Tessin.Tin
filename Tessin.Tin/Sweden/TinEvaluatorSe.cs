@@ -54,17 +54,11 @@ namespace Tessin.Tin.Sweden
             else
             {
                 var valid = ValidateSe.ValidatePnrLong(normalized);
-
                 if (!valid) response.AddError(TinMessageCode.ErrorInvalidChecksum);
-
                 response.Date = ValidateSe.GetDate(normalized, Culture);
-
                 if (response.Date == null) response.AddError(TinMessageCode.ErrorInvalidDate);
-
                 response.Gender = ValidateSe.GetNormalizedPnrGender(normalized);
-                
                 response.HandleAge();
-
             }
             response.Status = response.Messages.Any(p => p.Type == TinMessageType.Error) ? TinStatus.Invalid : TinStatus.Valid;
             return response;

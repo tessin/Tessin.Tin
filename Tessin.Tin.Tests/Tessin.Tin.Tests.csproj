@@ -55,6 +55,7 @@
     <Compile Include="TinEvaluatorFiTests.cs" />
     <Compile Include="TinEvaluatorNoTests.cs" />
     <Compile Include="TinEvaluatorSeTests.cs" />
+    <Compile Include="TinTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Tessin.Tin.Models\Tessin.Tin.Models.csproj">

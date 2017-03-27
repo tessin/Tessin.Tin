@@ -10,10 +10,11 @@ namespace Tessin.Tin.Finland
     public class TinEvaluatorFi : TinEvaluator
     {
 
-        private static readonly Regex FinishEntityTinRegex = new Regex("^[0-9]{7}-[0-9]$", RegexOptions.Compiled);
-
-        private static readonly Regex FinishPersonTinRegex = new Regex("^[0-9]{6}[-+A][0-9]{3}[0-9A-FHJK-NPR-Y]$",
-            RegexOptions.Compiled);
+        public TinEvaluatorFi()
+        {
+            PersonRegex = new Regex("^[0-9]{6}[-+A][0-9]{3}[0-9A-FHJK-NPR-Y]$", RegexOptions.Compiled);
+            EntityRegex = new Regex("^[0-9]{7}-[0-9]$", RegexOptions.Compiled);
+        }
 
         public override TinCountry Country => TinCountry.Finland;
 
@@ -45,7 +46,7 @@ namespace Tessin.Tin.Finland
                 normalized = NormalizeEntity(value);
                 if (normalized == null) return tin.AddError(TinMessageCode.ErrorNormalizationFailed);
                 tin.NormalizedValue = normalized;
-                if (!FinishEntityTinRegex.IsMatch(normalized))
+                if (!EntityRegex.IsMatch(normalized))
                 {
                     return tin.AddError(TinMessageCode.ErrorFormatMismatchEntity);
                 }
@@ -66,7 +67,7 @@ namespace Tessin.Tin.Finland
                 if (normalized == null)
                     return tin.AddError(TinMessageCode.ErrorNormalizationFailed);
                 tin.NormalizedValue = normalized;
-                if (!FinishPersonTinRegex.IsMatch(normalized))
+                if (!PersonRegex.IsMatch(normalized))
                 {
                     return tin.AddError(TinMessageCode.ErrorFormatMismatchPerson);
                 }

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Tessin.Tin</id>
+    <version>0.1.1</version>
+    <title>Tessin.Tin</title>
+    <authors>Thomas Bladh</authors>
+    <owners>Tessin Nordic AB</owners>
+    <licenseUrl>https://github.com/tessin/Tessin.Tin/blob/master/license.md</licenseUrl>
+    <projectUrl>https://github.com/tessin/Tessin.Tin</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Library for normalizing and validating nordic taxpayer identification numbers (TIN's).</description>
+    <releaseNotes>Initial release.</releaseNotes>
+    <copyright>Copyright © 2017 Tessin Nordic AB</copyright>
+    <tags>tax, id, tin, nin, sweden, norway, denmark, finland</tags>
+  </metadata>
+  <files>
+    <!--if the assembly is not in the list below it will not get included in the NuGet package-->
+    <file src="bin\$configuration$\Tessin.Tin.dll" target="lib\net45" />
+    <file src="bin\$configuration$\Tessin.Tin.Models.dll" target="lib\net45" />
+  </files>
+</package>
