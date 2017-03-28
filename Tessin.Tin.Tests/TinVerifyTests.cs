@@ -4,7 +4,7 @@ using Tessin.Tin.Models;
 namespace Tessin.Tin.Tests
 {
     [TestFixture]
-    public class TinTests
+    public class TinVerifyTests
     {
         [TestCase("851116-1393", TinCountry.Sweden, ExpectedResult = true)]
         [TestCase("31046812355", TinCountry.Norway, ExpectedResult = false)]
@@ -16,7 +16,7 @@ namespace Tessin.Tin.Tests
         [TestCase("291165-4883", TinCountry.Finland, ExpectedResult = true)]
         public static bool Validate_WithSuppliedValue_ReturnsTrueOrFalse(string value, TinCountry country)
         {
-            return value.IsValid(country);
+            return TinVerify.IsValid(value, country);
         }
     }
 }
