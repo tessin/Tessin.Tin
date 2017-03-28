@@ -20,5 +20,20 @@ namespace Tessin.Tin
                 return result.IsValid();
             }
         }
+
+        public static bool IsCompany(this string value, TinCountry country)
+        {
+            var evaluator = TinEvaluatorFactory.Default.Create(country);
+            var result = evaluator.Evaluate(value);
+            return result.Type == TinType.Entity;
+        }
+
+        public static bool IsPerson(this string value, TinCountry country)
+        {
+            var evaluator = TinEvaluatorFactory.Default.Create(country);
+            var result = evaluator.Evaluate(value);
+            return result.Type == TinType.Person;
+        }
+
     }
 }
