@@ -16,7 +16,7 @@ namespace Tessin.Tin.Tests
         [TestCase("291165-4883", TinCountry.Finland, ExpectedResult = true)]
         public static bool Validate_WithSuppliedValue_ReturnsTrueOrFalse(string value, TinCountry country)
         {
-            return value.Validate(country);
+            return value.IsValid(country);
         }
     }
 }
