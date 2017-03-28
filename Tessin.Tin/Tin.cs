@@ -6,7 +6,7 @@ namespace Tessin.Tin
 {
     public static class Tin
     {
-        public static bool Validate(this string value, TinCountry country, TinType type = TinType.Unknown)
+        public static bool IsValid(this string value, TinCountry country, TinType type = TinType.Unknown)
         {
             var evaluator = TinEvaluatorFactory.Default.Create(country);
             if (type == TinType.Unknown)
@@ -19,6 +19,11 @@ namespace Tessin.Tin
                 var result = evaluator.Evaluate(value, type);
                 return result.IsValid();
             }
+        }
+        public static TinResponse Validate(this string value, TinCountry country, TinType type = TinType.Unknown)
+        {
+            var evaluator = TinEvaluatorFactory.Default.Create(country);
+            return type == TinType.Unknown ? evaluator.Evaluate(value) : evaluator.Evaluate(value, type);
         }
 
         public static bool IsCompany(this string value, TinCountry country)
