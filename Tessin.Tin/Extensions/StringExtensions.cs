@@ -35,6 +35,25 @@ namespace Tessin.Tin.Extensions
             return sb.ToString();
         }
 
+        public static string RemoveAll(this string value, string pattern)
+        {
+            var sb = new StringBuilder();
+            var array = pattern.ToCharArray();
+            foreach (var c in value)
+            {
+                if (!array.Contains(c))
+                {
+                    sb.Append(c);
+                }
+            }
+            return sb.ToString();
+        }
+
+        public static string RemoveAllWhitespace(this string value)
+        {
+            return value.RemoveAll(" \t\r\n\b\f\v\0");
+        }
+
         public static string RemoveAllNonNumeric(this string value)
         {
             return RemoveAllExcept(value, "0123456789");

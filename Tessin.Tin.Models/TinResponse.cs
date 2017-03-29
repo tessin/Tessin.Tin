@@ -8,7 +8,9 @@ namespace Tessin.Tin.Models
 {
     public class TinResponse
     {
-        
+
+        private static readonly string Nl = Environment.NewLine;
+
         /// <summary>
         /// Raw value of the Tin number.
         /// </summary>
@@ -67,16 +69,16 @@ namespace Tessin.Tin.Models
 
         public override string ToString()
         {
-            return $"{nameof(Value)} = {Value}+\r\n" +
-                   $"{nameof(NormalizedValue)} = {NormalizedValue}\r\n" +
-                   $"{nameof(Country)} = {Country.GetText()}\r\n" +
-                   $"{nameof(Type)} = {Type.GetText()}\r\n" +
-                   $"{nameof(EntityType)} = {EntityType}\r\n" +
-                   $"{nameof(Gender)} = {Gender.GetText()}\r\n" +
-                   $"{nameof(Status)} = {Status.GetText()}\r\n" +
-                   $"{nameof(Date)} = {Date?.ToString("yyyy-MM-dd HH:mm:ss")}\r\n" +
-                   $"{nameof(Age)} = {Age}\r\n" +
-                   $"{nameof(Messages)} = {Messages.Select(p => p.ToString()).Aggregate((c, n) => c + n)}\r\n";
+            return $"{nameof(Value)} = {Value}{Nl}" +
+                   $"{nameof(NormalizedValue)} = {NormalizedValue}{Nl}" +
+                   $"{nameof(Country)} = {Country.GetText()}{Nl}" +
+                   $"{nameof(Type)} = {Type.GetText()}{Nl}" +
+                   $"{nameof(EntityType)} = {EntityType}{Nl}" +
+                   $"{nameof(Gender)} = {Gender.GetText()}{Nl}" +
+                   $"{nameof(Status)} = {Status.GetText()}{Nl}" +
+                   $"{nameof(Date)} = {Date?.ToString("yyyy-MM-dd HH:mm:ss")}{Nl}" +
+                   $"{nameof(Age)} = {Age}{Nl}" +
+                   $"{nameof(Messages)} = {Messages.Select(p => p.ToString()).Aggregate((c, n) => c + n)}{Nl}";
         }
     }
 }

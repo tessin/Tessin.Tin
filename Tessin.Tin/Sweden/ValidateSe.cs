@@ -10,7 +10,7 @@ namespace Tessin.Tin.Sweden
 
         public static string NormalizePnr(string pnr)
         {
-            pnr = pnr.Replace(" ","");
+            pnr = pnr.RemoveAllWhitespace();
             var di = pnr.Length - 5;
             var dash = pnr[di];
             if (!(dash == '-' || dash == '+'))
@@ -44,7 +44,7 @@ namespace Tessin.Tin.Sweden
 
         public static string NormalizeOnr(string onr)
         {
-            onr = onr.Replace(" ","");
+            onr = onr.RemoveAllWhitespace();
             if (onr.StartsWith("SE") && onr.EndsWith("01"))
             {
                 onr = onr.Substring(2, onr.Length - 4);
