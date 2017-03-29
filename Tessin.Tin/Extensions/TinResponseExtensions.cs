@@ -25,7 +25,7 @@ namespace Tessin.Tin.Extensions
             var age = tin.Date.ToAge();
             if (age == null)
             {
-                tin.AddError(TinMessageCode.ErrorInternal);
+                tin.AddError(TinMessageCode.ErrorUndefinedAge);
                 return;
             }
             if (age < AgeLimits.AgeZero) tin.AddError(TinMessageCode.ErrorNegativeAge);

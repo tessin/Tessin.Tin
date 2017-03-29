@@ -18,6 +18,7 @@ namespace Tessin.Tin.Tests
         }
 
 
+        [TestCase("20000000-0000", ExpectedResult = false)]
         [TestCase("630318-0910", ExpectedResult = true)]
         [TestCase("140323-4709", ExpectedResult = true)]
         [TestCase("350828-2328", ExpectedResult = true)]

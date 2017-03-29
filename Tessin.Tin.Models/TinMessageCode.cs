@@ -5,24 +5,26 @@
     {
         None = 0,
         ErrorValueIsNullOrWhitespace = 101,
-        ErrorNormalizationFailed = 103,
-        ErrorInvalidType = 105,
+        ErrorNormalizationFailed = 102,
+        ErrorInvalidType = 103,
         ErrorFormatMismatch = 111,
-        ErrorFormatMismatchEntity = 113,
-        ErrorFormatMismatchPerson = 115,
+        ErrorFormatMismatchEntity = 112,
+        ErrorFormatMismatchPerson = 113,
         ErrorInvalidDate = 121,
-        ErrorNegativeAge = 123,
+        ErrorNegativeAge = 122,
+        ErrorUndefinedAge = 123,
         ErrorInvalidEntityType = 131,
         ErrorInvalidChecksum = 141,
         ErrorInternal = 199,
+        
 
-        InfoAttemptedMatchForPerson = 10,
-        InfoAgeMinor = 20,
+        InfoAttemptedMatchForPerson = 11,
+        InfoAgeMinor = 21,
         InfoAgeSenior = 22,
-        InfoAgeExcessive = 24,
-        InfoAmbiguousCentury = 26,
-        InfoUnknownEntityType = 30,
-        InfoChecksumNotVerified = 40,
+        InfoAgeExcessive = 23,
+        InfoAmbiguousCentury = 24,
+        InfoUnknownEntityType = 31,
+        InfoChecksumNotVerified = 41,
 
     }
 }

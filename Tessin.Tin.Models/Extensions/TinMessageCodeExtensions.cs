@@ -2,7 +2,7 @@
 
 namespace Tessin.Tin.Models.Extensions
 {
-    public static class TinCodesExtensions
+    public static class TinMessageCodeExtensions
     {
 
         public static TinMessage ToInfoMessage(this TinMessageCode code)
@@ -54,7 +54,7 @@ namespace Tessin.Tin.Models.Extensions
                 case TinMessageCode.ErrorInvalidEntityType:
                     return new TinMessage(TinMessageType.Error, "The infered entity type is invalid.", code);
                 case TinMessageCode.ErrorInternal:
-                    return new TinMessage(TinMessageType.Error, "An internal error occured during validating.", code);
+                    return new TinMessage(TinMessageType.Error, "An internal error occured.", code);
                 default:
                     throw new InvalidOperationException($"Unknown error code '{code}'.");
             }

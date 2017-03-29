@@ -1,4 +1,6 @@
-﻿namespace Tessin.Tin.Models
+﻿using Tessin.Tin.Models.Extensions;
+
+namespace Tessin.Tin.Models
 {
 
     public enum TinMessageType
@@ -22,5 +24,9 @@
 
         public TinMessage(){}
 
+        public override string ToString()
+        {
+            return $"({Type.GetText()}|{Code.GetText()}|{Text})";
+        }
     }
 }
