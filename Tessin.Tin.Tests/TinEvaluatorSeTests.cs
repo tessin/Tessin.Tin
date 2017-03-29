@@ -79,7 +79,7 @@ namespace Tessin.Tin.Tests
         [TestCase(null, ExpectedResult = false)]
         [TestCase("", ExpectedResult = false)]
         [TestCase("2342we4fkunshkeujrytgnuy3", ExpectedResult = false)]
-
+        [TestCase("829327-8992", ExpectedResult = false)]
         public bool EvaluateWithTypeEntity_WithSwedishEntityTin_ReturnsValidOrInvalid(string value)
         {
             var evaluator = new TinEvaluatorSe();

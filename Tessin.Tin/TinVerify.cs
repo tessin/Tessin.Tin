@@ -1,5 +1,4 @@
-﻿using System;
-using Tessin.Tin.Models;
+﻿using Tessin.Tin.Models;
 using Tessin.Tin.Models.Extensions;
 
 namespace Tessin.Tin
@@ -26,7 +25,7 @@ namespace Tessin.Tin
             return type == TinType.Unknown ? evaluator.Evaluate(value) : evaluator.Evaluate(value, type);
         }
 
-        public static bool IsCompany(string value, TinCountry country)
+        public static bool IsEntity(string value, TinCountry country)
         {
             var evaluator = TinEvaluatorFactory.Default.Create(country);
             var result = evaluator.Evaluate(value);
