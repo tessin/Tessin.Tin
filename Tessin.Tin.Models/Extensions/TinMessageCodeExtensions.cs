@@ -49,6 +49,8 @@ namespace Tessin.Tin.Models.Extensions
                     return new TinMessage(TinMessageType.Error, "The normalized value does not match the expected pattern.", code);
                 case TinMessageCode.ErrorInvalidDate:
                     return new TinMessage(TinMessageType.Error, "The embedded date is invalid.", code);
+                case TinMessageCode.ErrorUndefinedAge:
+                    return new TinMessage(TinMessageType.Error, "Age is undefined.", code);
                 case TinMessageCode.ErrorNegativeAge:
                     return new TinMessage(TinMessageType.Error, "The computed age is negative.", code);
                 case TinMessageCode.ErrorInvalidEntityType:
