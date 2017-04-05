@@ -55,6 +55,8 @@ namespace Tessin.Tin.Models.Extensions
                     return new TinMessage(TinMessageType.Error, "The computed age is negative.", code);
                 case TinMessageCode.ErrorInvalidEntityType:
                     return new TinMessage(TinMessageType.Error, "The infered entity type is invalid.", code);
+                case TinMessageCode.ErrorUnknownCountry:
+                    return new TinMessage(TinMessageType.Error, "Country not supported.", code);
                 case TinMessageCode.ErrorInternal:
                     return new TinMessage(TinMessageType.Error, "An internal error occured.", code);
                 default:

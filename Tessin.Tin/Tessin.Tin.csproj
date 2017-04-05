@@ -52,6 +52,7 @@
     <Compile Include="Extensions\TinPartsExtensions.cs" />
     <Compile Include="Extensions\TinResponseExtensions.cs" />
     <Compile Include="Finland\TinEvaluatorFi.cs" />
+    <Compile Include="TinEvaluatorUnknown.cs" />
     <Compile Include="TinVerify.cs" />
     <Compile Include="TinEvaluatorFactory.cs" />
     <Compile Include="TinGlobal.cs" />

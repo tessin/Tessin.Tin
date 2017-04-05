@@ -61,6 +61,7 @@ namespace Tessin.Tin.Tests
             }
         }
 
+        [TestCase("d", ExpectedResult = false)]
         [TestCase("16315877", ExpectedResult = true)]
         [TestCase("22756214", ExpectedResult = true)]
         [TestCase("10582989 ", ExpectedResult = true)]

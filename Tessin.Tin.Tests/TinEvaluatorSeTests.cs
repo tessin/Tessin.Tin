@@ -48,6 +48,7 @@ namespace Tessin.Tin.Tests
         [TestCase("827675K7104", ExpectedResult = false)]
         [TestCase(null, ExpectedResult = false)]
         [TestCase("", ExpectedResult = false)]
+        [TestCase("d", ExpectedResult = false)]
         [TestCase("2342we4fkunshkeujrytgnuy3", ExpectedResult = false)]
         public bool Evaluate_WithSwedishPersonalTin_ReturnsValidOrInvalid(string value)
         {
@@ -79,6 +80,7 @@ namespace Tessin.Tin.Tests
         [TestCase(null, ExpectedResult = false)]
         [TestCase("", ExpectedResult = false)]
         [TestCase("2342we4fkunshkeujrytgnuy3", ExpectedResult = false)]
+        [TestCase("d", ExpectedResult = false)]
         [TestCase("829327-8992", ExpectedResult = false)]
         public bool EvaluateWithTypeEntity_WithSwedishEntityTin_ReturnsValidOrInvalid(string value)
         {

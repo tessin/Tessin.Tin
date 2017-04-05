@@ -17,7 +17,7 @@ namespace Tessin.Tin.Tests
             TinGlobal.OverrideDate = new DateTime(2017, 2, 11);
         }
 
-
+        [TestCase("d", ExpectedResult = false)]
         [TestCase("0112038-9", ExpectedResult = true)]
         [TestCase("2655044-9", ExpectedResult = true)]
         [TestCase("2255664-0", ExpectedResult = true)]
@@ -63,6 +63,7 @@ namespace Tessin.Tin.Tests
         [TestCase("", ExpectedResult = false)]
         [TestCase("  ", ExpectedResult = false)]
         [TestCase(" sdlfjahjsdkfjhasdf ", ExpectedResult = false)]
+        [TestCase("d", ExpectedResult = false)]
         public bool Evaluate_WithFinishPersonTin_ReturnsValidOrInvalid(string value)
         {
             var evaluator = new TinEvaluatorFi();
@@ -87,6 +88,7 @@ namespace Tessin.Tin.Tests
             Assert.That(tin.Age == age);
         }
 
+        [TestCase("d", ExpectedResult = false)]
         [TestCase("0112038-9", ExpectedResult = true)]
         [TestCase("2655044-9", ExpectedResult = true)]
         [TestCase("2255664-0", ExpectedResult = true)]

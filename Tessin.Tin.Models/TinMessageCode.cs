@@ -15,6 +15,7 @@
         ErrorUndefinedAge = 123,
         ErrorInvalidEntityType = 131,
         ErrorInvalidChecksum = 141,
+        ErrorUnknownCountry = 151,
         ErrorInternal = 199,
         
 

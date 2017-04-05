@@ -18,6 +18,7 @@ namespace Tessin.Tin.Tests
 
 
         [TestCase("31046812355", ExpectedResult = false)]
+        [TestCase("d", ExpectedResult = false)]
         public bool Evaluate_WithPersonTin_ReturnValidOrInvalid(string value)
         {
             var evaluator = new TinEvaluatorNo();

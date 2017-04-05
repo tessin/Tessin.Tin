@@ -11,12 +11,14 @@ namespace Tessin.Tin.Sweden
         public static string NormalizePnr(string pnr)
         {
             pnr = pnr.RemoveAllWhitespace();
+
+            if (pnr.Length < 10) return null;
             var di = pnr.Length - 5;
             var dash = pnr[di];
             if (!(dash == '-' || dash == '+'))
             {
                 dash = '-';
-                pnr = pnr.Insert(di + 1, dash.ToString()); // TODO: Check
+                pnr = pnr.Insert(di + 1, dash.ToString());
             }
             if (pnr.Length != 11 && pnr.Length != 13) return null;
             if (pnr.Length == 13 && dash == '+') pnr = pnr.Replace('+', '-');
@@ -45,10 +47,12 @@ namespace Tessin.Tin.Sweden
         public static string NormalizeOnr(string onr)
         {
             onr = onr.RemoveAllWhitespace();
+            if (onr.Length < 10) return null;
             if (onr.StartsWith("SE") && onr.EndsWith("01"))
             {
                 onr = onr.Substring(2, onr.Length - 4);
             }
+            if (onr.Length < 10) return null;
             var di = onr.Length - 5;
             var dash = onr[di];
             if (dash == '-') return onr.Length != 11 ? null : onr;
