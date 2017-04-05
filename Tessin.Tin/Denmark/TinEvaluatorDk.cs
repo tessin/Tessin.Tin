@@ -29,33 +29,35 @@ namespace Tessin.Tin.Denmark
 
         public override TinResponse Evaluate(string value, TinType type)
         {
-            var tin = new TinResponse();
-            tin.Value = value;
-            tin.Type = type;
-            tin.Country = Country;
+            var response = new TinResponse();
+            response.Value = value;
+            response.Type = type;
+            response.Country = Country;
 
             if (string.IsNullOrWhiteSpace(value))
             {
-                return tin.AddError(TinMessageCode.ErrorValueIsNullOrWhitespace);
+                return response.AddError(TinMessageCode.ErrorValueIsNullOrWhitespace);
             }
 
             if (type == TinType.Person)
             {
                 var normalized = NormalizePerson(value);
-                if (normalized == null) return tin.AddError(TinMessageCode.ErrorNormalizationFailed);
+                if (normalized == null) return response.AddError(TinMessageCode.ErrorNormalizationFailed);
+
+                response.NormalizedValue = normalized;
 
                 if (!DanishPersonTinRegex.IsMatch(normalized))
                 {
-                    return tin.AddError(TinMessageCode.ErrorFormatMismatchPerson);
+                    return response.AddError(TinMessageCode.ErrorFormatMismatchPerson);
                 }
 
-                tin.Gender = GetGender(normalized);
-                tin.Date = GetDate(normalized);
-                tin.HandleAge();;
+                response.Gender = GetGender(normalized);
+                response.Date = GetDate(normalized);
+                response.HandleAge();;
                 
-                tin.AddInfo(TinMessageCode.InfoChecksumNotVerified);
+                response.AddInfo(TinMessageCode.InfoChecksumNotVerified);
 
-                tin.Status = tin.Messages.Any(p => p.Type == TinMessageType.Error)
+                response.Status = response.Messages.Any(p => p.Type == TinMessageType.Error)
                     ? TinStatus.Invalid
                     : TinStatus.Valid;
 
@@ -64,28 +66,31 @@ namespace Tessin.Tin.Denmark
             {
                 var normalized = NormalizeEntity(value);
                 if (normalized == null)
-                    return tin.AddError(TinMessageCode.ErrorNormalizationFailed);
+                    return response.AddError(TinMessageCode.ErrorNormalizationFailed);
+
+                response.NormalizedValue = normalized;
+
                 if (!DanishEntityTinRegex.IsMatch(normalized))
                 {
-                    return tin.AddError(TinMessageCode.ErrorFormatMismatchEntity);
+                    return response.AddError(TinMessageCode.ErrorFormatMismatchEntity);
                 }
                 if (!IsValidCvr(normalized))
                 {
-                    return tin.AddError(TinMessageCode.ErrorInvalidChecksum);
+                    return response.AddError(TinMessageCode.ErrorInvalidChecksum);
                 }
-                tin.Status = TinStatus.Valid;
+                response.Status = TinStatus.Valid;
             }
             else
             {
-                return tin.AddError(TinMessageCode.ErrorInvalidType);
+                return response.AddError(TinMessageCode.ErrorInvalidType);
             }
 
-            return tin;
+            return response;
         }
 
         private static string NormalizePerson(string value)
         {
-            value = value.Replace(" ", "").ToUpper();
+            value = value.RemoveAllWhitespace().ToUpper();
             var dash = value[6];
             if (dash != '-') value = value.Insert(6, "-");
             return value.Length != 11 ? null : value;
@@ -93,7 +98,7 @@ namespace Tessin.Tin.Denmark
 
         private static string NormalizeEntity(string value)
         {
-            value = value.Replace(" ", "");
+            value = value.RemoveAllWhitespace().ToUpper();
             if (value.StartsWith("DK"))
                 value = value.Remove(0, 2);
             if (value.StartsWith("CVR"))

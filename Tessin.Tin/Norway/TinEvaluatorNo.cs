@@ -44,11 +44,13 @@ namespace Tessin.Tin.Norway
             {
                 var normalized = NormalizePerson(value);
                 if (normalized == null) return response.AddError(TinMessageCode.ErrorNormalizationFailed);
+
+                response.NormalizedValue = normalized;
+
                 if (!NorwegianPersonTinRegex.IsMatch(normalized))
                 {
                     return response.AddError(TinMessageCode.ErrorFormatMismatchPerson);
                 }
-
                 var parts = new TinParts(TinDateFormat.DayMonthYear, TinYearFormat.Short);
                 parts.Serial = normalized.Substring(6, 3);
                 parts.Checksum = normalized.Substring(9, 2);
@@ -88,6 +90,8 @@ namespace Tessin.Tin.Norway
                     return response.AddError(TinMessageCode.ErrorFormatMismatchEntity);
                 }
 
+                response.NormalizedValue = normalized;
+
                 var parts = new TinParts();
                 parts.Serial = normalized.Substring(0, 8);
                 parts.Checksum = normalized.Substring(8, 1);
@@ -114,13 +118,13 @@ namespace Tessin.Tin.Norway
 
         private static string NormalizePerson(string value)
         {
-            value = value.Replace(" ", "").ToUpper();
+            value = value.RemoveAllWhitespace().ToUpper();
             return value.Length != 11 ? null : value;
         }
 
         private static string NormalizeEntity(string value)
         {
-            value = value.Replace(" ", "").ToUpper().Replace("MVA","");
+            value = value.RemoveAllWhitespace().ToUpper().Replace("MVA","");
             return value.Length == 9 ? value : null;
         }
 
