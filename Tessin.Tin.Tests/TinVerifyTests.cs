@@ -18,6 +18,7 @@ namespace Tessin.Tin.Tests
         [TestCase("291165-4883", TinCountry.Finland, TinType.Person, ExpectedResult = true)]
         [TestCase("291165-4883", TinCountry.Unknown, TinType.Person, ExpectedResult = false)]
         [TestCase("291165-4883", TinCountry.Finland, TinType.Unknown, ExpectedResult = true)]
+        [TestCase("917254788", TinCountry.Norway, TinType.Entity, ExpectedResult = true)]// 
         public static bool IsValid_WithSuppliedValue_ReturnsTrueOrFalse(string value, TinCountry country, TinType type)
         {
             return TinVerify.IsValid(value, country, type);
