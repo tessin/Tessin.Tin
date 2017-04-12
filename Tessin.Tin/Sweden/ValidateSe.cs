@@ -28,7 +28,7 @@ namespace Tessin.Tin.Sweden
             {
                 var century = GetLikelyCentury(year, dash == '+');
                 // The plus sign is not expected in the normalized form.
-                pnr = pnr.Replace('+', '-'); 
+                pnr = pnr.Replace('+', '-');
                 pnr = century + pnr;
             }
             else
@@ -40,8 +40,15 @@ namespace Tessin.Tin.Sweden
 
         public static TinGender GetNormalizedPnrGender(string pnr)
         {
-            var c = int.Parse(pnr[pnr.Length - 2].ToString());
-            return (c%2 == 0) ? TinGender.Female : TinGender.Male;
+            try
+            {
+                var c = int.Parse(pnr[pnr.Length - 2].ToString());
+                return (c % 2 == 0) ? TinGender.Female : TinGender.Male;
+            }
+            catch (Exception)
+            {
+                return TinGender.Unknown;
+            }
         }
 
         public static string NormalizeOnr(string onr)

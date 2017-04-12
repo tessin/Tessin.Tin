@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using Tessin.Tin.Models;
 
 namespace Tessin.Tin
@@ -25,9 +26,11 @@ namespace Tessin.Tin
 
         public static TinEvaluatorFactory Default => DefaultLazy.Value;
 
-        private static readonly Lazy<TinEvaluatorFactory> DefaultLazy = new Lazy<TinEvaluatorFactory>(() =>
+        private static readonly ThreadLocal<TinEvaluatorFactory> DefaultLazy = new ThreadLocal<TinEvaluatorFactory>(() =>
             new TinEvaluatorFactory(AppDomain.CurrentDomain.GetAssemblies().ToArray()));
 
+        // TODO: Upgrade to Dictionary of TinCountry and ITinEvaluator 
+        // TODO: once the collection of languages grows sufficiently.
         public List<ITinEvaluator> Instances { get; }
 
         public List<Problematic<Assembly>> ProblematicAssemblies { get; set; }

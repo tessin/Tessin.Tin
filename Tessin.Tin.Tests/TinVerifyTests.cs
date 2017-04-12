@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿using System;
+using System.Diagnostics;
+using NUnit.Framework;
 using Tessin.Tin.Models;
 using Tessin.Tin.Models.Extensions;
 
@@ -88,5 +90,21 @@ namespace Tessin.Tin.Tests
         }
 
 
+        [Test]
+        public static void Validate_WithRandomCountryTypeAndInput_ShouldNotThrowException()
+        {
+            var strings = Utils.GetRandomStrings(200000, 64);
+            var watch = new Stopwatch();
+            watch.Start();
+            foreach (var s in strings)
+            {
+                var country = Utils.RandomEnumValue<TinCountry>();
+                var type = Utils.RandomEnumValue<TinType>();
+                TinVerify.Validate(s, country, type);
+            }
+            watch.Stop();
+            Debug.WriteLine($"Elapsed: {watch.ElapsedMilliseconds}");
+        }
+        
     }
 }

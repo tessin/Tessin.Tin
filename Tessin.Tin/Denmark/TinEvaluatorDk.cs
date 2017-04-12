@@ -94,6 +94,7 @@ namespace Tessin.Tin.Denmark
         private static string NormalizePerson(string value)
         {
             value = value.RemoveAllWhitespace().ToUpper();
+            if (value.Length < 10) return null;
             var dash = value[6];
             if (dash != '-') value = value.Insert(6, "-");
             return value.Length != 11 ? null : value;
