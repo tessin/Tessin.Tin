@@ -75,7 +75,7 @@ namespace Tessin.Tin.Tests
         [TestCase("0109862-5", TinCountry.Finland, TinType.Entity)]
         [TestCase("330788-4982", TinCountry.Denmark, TinType.Person)]
         [TestCase("36213724", TinCountry.Denmark, TinType.Entity)]
-        public static void BothOverloadsOfValidate_WithInvalidTin_Returns(string value, TinCountry country, TinType type)
+        public static void BothOverloadsOfValidate_WithInvalidTin_BehaveAsExpected(string value, TinCountry country, TinType type)
         {
             var result1 = TinVerify.Validate(value, country, type);
 
