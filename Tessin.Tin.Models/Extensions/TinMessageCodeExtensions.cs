@@ -10,7 +10,7 @@ namespace Tessin.Tin.Models.Extensions
             switch (code)
             {
                 case TinMessageCode.InfoAttemptedMatchForPerson:
-                    return new TinMessage(TinMessageType.Information, "Previosly failed to match value as a person. Retrying evaluation as entity.", code);
+                    return new TinMessage(TinMessageType.Information, "Previously failed to match value as a person. Retrying evaluation as entity.", code);
                 case TinMessageCode.InfoAgeExcessive:
                     return new TinMessage(TinMessageType.Information, "The calculated age is excessive.", code);
                 case TinMessageCode.InfoAgeMinor:
@@ -59,6 +59,8 @@ namespace Tessin.Tin.Models.Extensions
                     return new TinMessage(TinMessageType.Error, "Country not supported.", code);
                 case TinMessageCode.ErrorInternal:
                     return new TinMessage(TinMessageType.Error, "An internal error occured.", code);
+                case TinMessageCode.ErrorFailedAttemptedTypeMatch:
+                    return new TinMessage(TinMessageType.Error, "Could not validate value as any known type for country.", code);
                 default:
                     throw new InvalidOperationException($"Unknown error code '{code}'.");
             }

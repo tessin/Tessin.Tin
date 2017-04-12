@@ -20,10 +20,13 @@ namespace Tessin.Tin.Sweden
         public override TinResponse Evaluate(string value)
         {
             var result = Evaluate(value, TinType.Person);
-            var temp = result;
             if (result.Status != TinStatus.Invalid) return result;
             result = Evaluate(value, TinType.Entity);
-            return result.Status == TinStatus.Invalid ? temp : result;
+            result.AddInfo(TinMessageCode.InfoAttemptedMatchForPerson);
+            if (!result.IsInvalid()) return result;
+            result.AddError(TinMessageCode.ErrorFailedAttemptedTypeMatch);
+            result.Type = TinType.Unknown;
+            return result;
         }
 
         public override TinResponse Evaluate(string value, TinType type)

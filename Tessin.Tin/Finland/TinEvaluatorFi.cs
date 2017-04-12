@@ -24,6 +24,9 @@ namespace Tessin.Tin.Finland
             if (result.Status != TinStatus.Invalid) return result;
             result = Evaluate(value, TinType.Entity);
             result.AddInfo(TinMessageCode.InfoAttemptedMatchForPerson);
+            if (!result.IsInvalid()) return result;
+            result.AddError(TinMessageCode.ErrorFailedAttemptedTypeMatch);
+            result.Type = TinType.Unknown;
             return result;
         }
 

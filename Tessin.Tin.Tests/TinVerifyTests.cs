@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using Tessin.Tin.Models;
+using Tessin.Tin.Models.Extensions;
 
 namespace Tessin.Tin.Tests
 {
@@ -42,6 +43,48 @@ namespace Tessin.Tin.Tests
         public static string Validate_WithSuppliedValue_ReturnsNormalizedValue(string value, TinCountry country, TinType type)
         {
             return TinVerify.Validate(value, country, type).NormalizedValue;
+        }
+
+        [TestCase("851116-1393", TinCountry.Sweden, TinType.Person)]
+        [TestCase("598400-8010", TinCountry.Sweden, TinType.Entity)]
+        [TestCase("917254788", TinCountry.Norway, TinType.Entity)]
+        [TestCase("27046828122", TinCountry.Norway, TinType.Person)]
+        [TestCase("291165-4883", TinCountry.Finland, TinType.Person)]
+        [TestCase("0109862-8", TinCountry.Finland, TinType.Entity)]
+        [TestCase("300788-4981", TinCountry.Denmark, TinType.Person)]
+        [TestCase("36213728", TinCountry.Denmark, TinType.Entity)]
+        public static void BothOverloadsOfValidate_WithValidTin_ReturnsEquivalentResult(string value, TinCountry country, TinType type)
+        {
+            var result1 = TinVerify.Validate(value, country, type);
+
+            var result2 = TinVerify.Validate(value, country);
+
+            Assert.That(result1.Status, Is.EqualTo(result2.Status));
+            Assert.That(result1.Type, Is.EqualTo(result2.Type));
+            Assert.That(result1.Country, Is.EqualTo(result2.Country));
+            Assert.That(result1.Gender, Is.EqualTo(result2.Gender));
+            Assert.That(result1.NormalizedValue, Is.EqualTo(result2.NormalizedValue));
+
+        }
+
+        [TestCase("851116-1397", TinCountry.Sweden, TinType.Person)]
+        [TestCase("598400-8015", TinCountry.Sweden, TinType.Entity)]
+        [TestCase("917254784", TinCountry.Norway, TinType.Entity)]
+        [TestCase("27046828126", TinCountry.Norway, TinType.Person)]
+        [TestCase("291165-4888", TinCountry.Finland, TinType.Person)]
+        [TestCase("0109862-5", TinCountry.Finland, TinType.Entity)]
+        [TestCase("330788-4982", TinCountry.Denmark, TinType.Person)]
+        [TestCase("36213724", TinCountry.Denmark, TinType.Entity)]
+        public static void BothOverloadsOfValidate_WithInvalidTin_Returns(string value, TinCountry country, TinType type)
+        {
+            var result1 = TinVerify.Validate(value, country, type);
+
+            var result2 = TinVerify.Validate(value, country);
+
+            Assert.That(result1.Type, Is.EqualTo(type));
+            Assert.That(result2.Type, Is.EqualTo(TinType.Unknown));
+            Assert.That(result1.Status, Is.EqualTo(result2.Status));
+            
         }
 
 

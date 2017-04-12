@@ -78,7 +78,7 @@ namespace Tessin.Tin.Models
                    $"{nameof(Status)} = {Status.GetText()}{Nl}" +
                    $"{nameof(Date)} = {Date?.ToString("yyyy-MM-dd HH:mm:ss")}{Nl}" +
                    $"{nameof(Age)} = {Age}{Nl}" +
-                   $"{nameof(Messages)} = {Messages.Select(p => p.ToString()).Aggregate((c, n) => c + n)}{Nl}";
+                   $"{nameof(Messages)} = {Messages.Select(p => p.ToString()).Aggregate("", (c, n) => c + n)}{Nl}";
         }
     }
 }

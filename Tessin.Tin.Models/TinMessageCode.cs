@@ -16,6 +16,7 @@
         ErrorInvalidEntityType = 131,
         ErrorInvalidChecksum = 141,
         ErrorUnknownCountry = 151,
+        ErrorFailedAttemptedTypeMatch = 161,
         ErrorInternal = 199,
         
 
