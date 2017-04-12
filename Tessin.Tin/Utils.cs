@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Tessin.Tin.Extensions;
 
 namespace Tessin.Tin
 {
-    public static class Utils
+    public class Utils
     {
         public static bool IsValidDate(int year, int month, int day)
         {
@@ -33,7 +31,7 @@ namespace Tessin.Tin
             return (T)v.GetValue(new Random().Next(v.Length));
         }
 
-        public static IEnumerable<string> GetRandomStrings(int n, int max)
+        public static IEnumerable<string> GetRandomStrings(int n, int max, bool garbage = false)
         {
             var r = new Random(12132);
             for (var i = 0; i < n; i++)
@@ -43,7 +41,7 @@ namespace Tessin.Tin
                 if (length == -1) yield return null;
                 for (var j = 0; j < length; j++)
                 {
-                    var c = GetRandomCharacter(r);
+                    var c = garbage ? (char)r.Next(128) : GetSemiRandomCharacter(r);
                     sb.Append(c);
                 }
                 yield return sb.ToString();
@@ -53,7 +51,7 @@ namespace Tessin.Tin
         [ThreadStatic]
         private static string _pattern;
 
-        private static char GetRandomCharacter(Random r)
+        private static char GetSemiRandomCharacter(Random r)
         {
             const string upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZÅÄÖ";
             const string lowerCase = "abcdefghijklmnopqrstuvwxyzåäö";

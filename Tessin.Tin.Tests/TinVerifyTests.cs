@@ -90,10 +90,11 @@ namespace Tessin.Tin.Tests
         }
 
 
-        [Test]
-        public static void Validate_WithRandomCountryTypeAndInput_ShouldNotThrowException()
+        [TestCase(true)]
+        [TestCase(false)]
+        public static void Validate_WithRandomCountryTypeAndInput_ShouldNotThrowException(bool garbage)
         {
-            var strings = Utils.GetRandomStrings(200000, 64);
+            var strings = Utils.GetRandomStrings(200000, 64, garbage);
             var watch = new Stopwatch();
             watch.Start();
             foreach (var s in strings)
