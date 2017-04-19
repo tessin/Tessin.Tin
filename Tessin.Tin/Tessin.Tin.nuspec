@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Tessin.Tin</id>
-    <version>0.2.3</version>
+    <version>0.2.9</version>
     <title>Tessin.Tin</title>
     <authors>Thomas Bladh</authors>
     <owners>Tessin Nordic AB</owners>
@@ -10,7 +10,7 @@
     <projectUrl>https://github.com/tessin/Tessin.Tin</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Library for normalizing and validating nordic taxpayer identification numbers (TIN's).</description>
-    <releaseNotes>Fixed issues with TIN type determination.</releaseNotes>
+    <releaseNotes>Fixed issues with thread safety.</releaseNotes>
     <copyright>Copyright © 2017 Tessin Nordic AB</copyright>
     <tags>tax, id, tin, nin, sweden, norway, denmark, finland</tags>
   </metadata>

@@ -2,8 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Threading;
+using System.Text;
+using Tessin.Tin.Denmark;
+using Tessin.Tin.Finland;
 using Tessin.Tin.Models;
+using Tessin.Tin.Norway;
+using Tessin.Tin.Sweden;
 
 namespace Tessin.Tin
 {
@@ -24,14 +28,16 @@ namespace Tessin.Tin
     public class TinEvaluatorFactory
     {
 
-        public static TinEvaluatorFactory Default => DefaultLazy.Value;
+        public static TinEvaluatorFactory Default => new TinEvaluatorFactory();
 
-        private static readonly ThreadLocal<TinEvaluatorFactory> DefaultLazy = new ThreadLocal<TinEvaluatorFactory>(() =>
-            new TinEvaluatorFactory(AppDomain.CurrentDomain.GetAssemblies().ToArray()));
-
-        // TODO: Upgrade to Dictionary of TinCountry and ITinEvaluator 
-        // TODO: once the collection of languages grows sufficiently.
-        public List<ITinEvaluator> Instances { get; }
+        public List<ITinEvaluator> Instances = new List<ITinEvaluator>
+        {
+            new TinEvaluatorSe(),
+            new TinEvaluatorDk(),
+            new TinEvaluatorNo(),
+            new TinEvaluatorFi(),
+            new TinEvaluatorUnknown()
+        };
 
         public List<Problematic<Assembly>> ProblematicAssemblies { get; set; }
 
@@ -45,45 +51,28 @@ namespace Tessin.Tin
 
         public ITinEvaluator Create(TinCountry country)
         {
-            var instance = Instances.FirstOrDefault(p => p.Country == country);
-            if (instance == null) throw new ArgumentException($"Unsupported country '{country}'.");
-            return instance;
+            try
+            {
+                var instance = Instances.FirstOrDefault(p => p.Country == country);
+                if (instance == null) throw new ArgumentException($"Unsupported country '{country}'.");
+                return instance;
+            }
+            catch (Exception ex)
+            {
+                var sb = new StringBuilder();
+                sb.AppendLine($"Could not resolve '{nameof(country)}'.");
+                foreach (var assembly in ProblematicAssemblies)
+                {
+                    sb.AppendLine($"Assembly: {assembly.Instance?.FullName}");
+                }
+                foreach (var assembly in ProblematicTypes)
+                {
+                    sb.AppendLine($"Type: {nameof(assembly.Instance)}");
+                }
+                throw new Exception(sb.ToString(), ex);
+            }
         }
 
-        public TinEvaluatorFactory(params Assembly[] domain)
-        {
-            if (domain == null)
-            {
-                throw new ArgumentNullException(nameof(domain));
-            }
-
-            var instances = new List<ITinEvaluator>();
-            foreach (var assembly in domain)
-            {
-                try
-                {
-                    var types = assembly.GetTypes().Where((x) => typeof(ITinEvaluator).IsAssignableFrom(x) && !x.IsAbstract);
-                    foreach (var type in types)
-                    {
-                        ITinEvaluator instance;
-                        try
-                        {
-                            instance = Activator.CreateInstance(type) as ITinEvaluator;
-                        }
-                        catch (Exception ex)
-                        {
-                            ProblematicTypes.Add(new Problematic<Type>(ex, type));
-                            continue;
-                        }
-                        instances.Add(instance);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    ProblematicAssemblies.Add(new Problematic<Assembly>(ex, assembly));
-                }
-            }
-            Instances = instances;
-        }
+        
     }
 }

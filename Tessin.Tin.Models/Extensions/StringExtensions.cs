@@ -23,6 +23,7 @@ namespace Tessin.Tin.Models.Extensions
 
         public static TinCountry ToTinCountry(this string value)
         {
+            if (string.IsNullOrWhiteSpace(value)) return TinCountry.Unknown;
             var country = value.Trim().ToLower();
             switch (country)
             {

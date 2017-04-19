@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using NUnit.Framework;
 using Tessin.Tin.Models;
 using Tessin.Tin.Models.Extensions;
@@ -21,7 +22,7 @@ namespace Tessin.Tin.Tests
         [TestCase("291165-4883", TinCountry.Finland, TinType.Person, ExpectedResult = true)]
         [TestCase("291165-4883", TinCountry.Unknown, TinType.Person, ExpectedResult = false)]
         [TestCase("291165-4883", TinCountry.Finland, TinType.Unknown, ExpectedResult = true)]
-        [TestCase("917254788", TinCountry.Norway, TinType.Entity, ExpectedResult = true)]// 
+        [TestCase("917254788", TinCountry.Norway, TinType.Entity, ExpectedResult = true)]
         public static bool IsValid_WithSuppliedValue_ReturnsTrueOrFalse(string value, TinCountry country, TinType type)
         {
             return TinVerify.IsValid(value, country, type);
@@ -92,17 +93,19 @@ namespace Tessin.Tin.Tests
 
         [TestCase(true)]
         [TestCase(false)]
-        public static void Validate_WithRandomCountryTypeAndInput_ShouldNotThrowException(bool garbage)
+        public static void Validate_WithRandomCountryTypeAndInputAndInParallel_ShouldNotThrowException(bool garbage)
         {
             var strings = Utils.GetRandomStrings(200000, 64, garbage);
             var watch = new Stopwatch();
             watch.Start();
-            foreach (var s in strings)
+
+            Parallel.ForEach(strings, new ParallelOptions { MaxDegreeOfParallelism = 8 }, s =>
             {
                 var country = Utils.RandomEnumValue<TinCountry>();
                 var type = Utils.RandomEnumValue<TinType>();
                 TinVerify.Validate(s, country, type);
-            }
+            });
+
             watch.Stop();
             Debug.WriteLine($"Elapsed: {watch.ElapsedMilliseconds}");
         }

@@ -53,7 +53,7 @@ namespace Tessin.Tin.Tests
         public bool Evaluate_WithSwedishPersonalTin_ReturnsValidOrInvalid(string value)
         {
             var evaluator = new TinEvaluatorSe();
-            var tin = evaluator.Evaluate(value);
+            var tin = evaluator.Evaluate(value, TinType.Person);
             return tin.Status == TinStatus.Valid;
         }
 
@@ -81,7 +81,7 @@ namespace Tessin.Tin.Tests
         [TestCase("", ExpectedResult = false)]
         [TestCase("2342we4fkunshkeujrytgnuy3", ExpectedResult = false)]
         [TestCase("d", ExpectedResult = false)]
-        [TestCase("829327-8992", ExpectedResult = false)]
+        [TestCase("829327-8992", ExpectedResult = true)]
         public bool EvaluateWithTypeEntity_WithSwedishEntityTin_ReturnsValidOrInvalid(string value)
         {
             var evaluator = new TinEvaluatorSe();
