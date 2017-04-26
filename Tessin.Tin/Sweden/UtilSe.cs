@@ -29,9 +29,9 @@ namespace Tessin.Tin.Sweden
     
     public static class UtilSe
     {
-        public static readonly Regex IsNumeric = new Regex("^[0-9]+$", RegexOptions.Compiled);
-        public static readonly Regex IsPersonnummerStrict = new Regex("^[0-9]{6}[\\-+][0-9]{4}$", RegexOptions.Compiled);
-        public static readonly Regex IsOrganisationNumberStrict = new Regex("^[0-9]{6}-[0-9]{4}$", RegexOptions.Compiled);
+        public static readonly Regex IsNumeric = new Regex("^[0-9]+$");
+        public static readonly Regex IsPersonnummerStrict = new Regex("^[0-9]{6}[\\-+][0-9]{4}$");
+        public static readonly Regex IsOrganisationNumberStrict = new Regex("^[0-9]{6}-[0-9]{4}$");
 
         private static readonly Random R = new Random();
 

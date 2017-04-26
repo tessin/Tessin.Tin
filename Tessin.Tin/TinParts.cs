@@ -132,7 +132,7 @@ namespace Tessin.Tin
                     Day = p1;
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(format), format, null);
+                    throw new ArgumentOutOfRangeException(nameof(format));
             }
         }
 

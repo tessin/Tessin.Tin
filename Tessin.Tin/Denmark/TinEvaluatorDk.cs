@@ -10,11 +10,9 @@ namespace Tessin.Tin.Denmark
     public class TinEvaluatorDk: TinEvaluator
     {
 
-        private static readonly Regex DanishPersonTinRegex = new Regex("^[0-9]{6}-[0-9]{4}$",
-            RegexOptions.Compiled);
+        private static readonly Regex DanishPersonTinRegex = new Regex("^[0-9]{6}-[0-9]{4}$");
 
-        private static readonly Regex DanishEntityTinRegex = new Regex("^[0-9]{8}$",
-            RegexOptions.Compiled);
+        private static readonly Regex DanishEntityTinRegex = new Regex("^[0-9]{8}$");
         
         public override TinCountry Country => TinCountry.Denmark;
 

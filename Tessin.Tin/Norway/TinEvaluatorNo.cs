@@ -12,11 +12,9 @@ namespace Tessin.Tin.Norway
     {
         private static readonly Func<int, int> ModuloRule = (p) => p == 10 ? -1 : (p == 11 ? 0 : p);
 
-        private static readonly Regex NorwegianPersonTinRegex = new Regex("^[0-9]{11}$",
-            RegexOptions.Compiled);
+        private static readonly Regex NorwegianPersonTinRegex = new Regex("^[0-9]{11}$");
 
-        private static readonly Regex NorwegianEntityTinRegex = new Regex("^[0-9]{9}$",
-            RegexOptions.Compiled);
+        private static readonly Regex NorwegianEntityTinRegex = new Regex("^[0-9]{9}$");
 
         public override TinCountry Country => TinCountry.Norway;
 

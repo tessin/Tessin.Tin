@@ -2,14 +2,14 @@
 <package >
   <metadata>
     <id>Tessin.Tin</id>
-    <version>0.2.9</version>
+    <version>0.3.0</version>
     <title>Tessin.Tin</title>
     <authors>Thomas Bladh</authors>
     <owners>Tessin Nordic AB</owners>
     <licenseUrl>https://github.com/tessin/Tessin.Tin/blob/master/license.md</licenseUrl>
     <projectUrl>https://github.com/tessin/Tessin.Tin</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Library for normalizing and validating nordic taxpayer identification numbers (TIN's).</description>
+    <description>Added silverlight target.</description>
     <releaseNotes>Fixed issues with thread safety.</releaseNotes>
     <copyright>Copyright © 2017 Tessin Nordic AB</copyright>
     <tags>tax, id, tin, nin, sweden, norway, denmark, finland</tags>
@@ -18,5 +18,7 @@
     <!--if the assembly is not in the list below it will not get included in the NuGet package-->
     <file src="bin\$configuration$\Tessin.Tin.dll" target="lib\net45" />
     <file src="bin\$configuration$\Tessin.Tin.Models.dll" target="lib\net45" />
+    <file src="..\Tessin.Tin.Silverlight\bin\$configuration$\Tessin.Tin.dll" target="lib\sl5" />
+    <file src="..\Tessin.Tin.Silverlight\bin\$configuration$\Tessin.Tin.Models.dll" target="lib\sl5" />
   </files>
 </package>

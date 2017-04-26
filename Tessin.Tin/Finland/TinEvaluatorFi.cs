@@ -12,8 +12,8 @@ namespace Tessin.Tin.Finland
 
         public TinEvaluatorFi()
         {
-            PersonRegex = new Regex("^[0-9]{6}[-+A][0-9]{3}[0-9A-FHJK-NPR-Y]$", RegexOptions.Compiled);
-            EntityRegex = new Regex("^[0-9]{7}-[0-9]$", RegexOptions.Compiled);
+            PersonRegex = new Regex("^[0-9]{6}[-+A][0-9]{3}[0-9A-FHJK-NPR-Y]$");
+            EntityRegex = new Regex("^[0-9]{7}-[0-9]$");
         }
 
         public override TinCountry Country => TinCountry.Finland;

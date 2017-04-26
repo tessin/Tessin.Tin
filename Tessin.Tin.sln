@@ -4,6 +4,10 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tessin.Tin", "Tessin.Tin\Tessin.Tin.csproj", "{689E22D8-889A-435D-88F2-16FDBC0D200E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{675FBE56-102F-4DB4-ACCE-A657A78E93A2} = {675FBE56-102F-4DB4-ACCE-A657A78E93A2}
+		{A1E99276-9F9B-4F2F-80FD-FAAA759655BB} = {A1E99276-9F9B-4F2F-80FD-FAAA759655BB}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tessin.Tin.Tests", "Tessin.Tin.Tests\Tessin.Tin.Tests.csproj", "{FF3693B3-E481-419F-8E6C-F1250E0B4D56}"
 EndProject
@@ -13,6 +17,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{
 	ProjectSection(SolutionItems) = preProject
 		license.md = license.md
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tessin.Tin.Silverlight", "Tessin.Tin.Silverlight\Tessin.Tin.Silverlight.csproj", "{675FBE56-102F-4DB4-ACCE-A657A78E93A2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tessin.Tin.Models.Silverlight", "Tessin.Tin.Models.Silverlight\Tessin.Tin.Models.Silverlight.csproj", "{A1E99276-9F9B-4F2F-80FD-FAAA759655BB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,6 +40,14 @@ Global
 		{50323AC4-C4CC-4B82-BA06-2E2F95A6FACC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{50323AC4-C4CC-4B82-BA06-2E2F95A6FACC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{50323AC4-C4CC-4B82-BA06-2E2F95A6FACC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{675FBE56-102F-4DB4-ACCE-A657A78E93A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{675FBE56-102F-4DB4-ACCE-A657A78E93A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{675FBE56-102F-4DB4-ACCE-A657A78E93A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{675FBE56-102F-4DB4-ACCE-A657A78E93A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1E99276-9F9B-4F2F-80FD-FAAA759655BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1E99276-9F9B-4F2F-80FD-FAAA759655BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1E99276-9F9B-4F2F-80FD-FAAA759655BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1E99276-9F9B-4F2F-80FD-FAAA759655BB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

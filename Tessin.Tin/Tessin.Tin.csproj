@@ -49,7 +49,6 @@
     <Compile Include="Extensions\GenericExtensions.cs" />
     <Compile Include="Extensions\IntegerExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
-    <Compile Include="Extensions\TinCountryExtensions.cs" />
     <Compile Include="Extensions\TinPartsExtensions.cs" />
     <Compile Include="Extensions\TinResponseExtensions.cs" />
     <Compile Include="Finland\TinEvaluatorFi.cs" />
